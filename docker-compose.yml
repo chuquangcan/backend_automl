@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: admin
+      MONGODB_INITDB_ROOT_PASSWORD: admin
+      MONGODB_INITDB_DATABASE: automl
+    ports:
+      - 8674:27017
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - "./mongodb/data:/data/db"
+    networks:
+      - automl_be
+
+networks:
+  automl_be:
